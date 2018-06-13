@@ -1,6 +1,7 @@
 public enum Event: String {
     case bufferUpdate
     case positionUpdate
+    case didChangePlayback
     case ready
     case stalled
     case willUpdateAudioSource
