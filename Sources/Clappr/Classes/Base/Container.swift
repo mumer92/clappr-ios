@@ -1,7 +1,7 @@
 import Foundation
 
 @objc open class PluginsSharedData: NSObject {
-    @objc public var sharedData = [Int: Any]()
+    @objc public var sharedData = [String: Any]()
 }
 
 open class Container: UIBaseObject {
