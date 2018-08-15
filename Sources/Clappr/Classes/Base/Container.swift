@@ -1,21 +1,7 @@
 import Foundation
 
-public extension PluginsSharedData {
-    func getMetricsSessionId() -> UUID {
-        guard let id = sharedData[dataKey.metricsSessionId.rawValue] as? UUID else {
-            let id = UUID()
-            sharedData[dataKey.metricsSessionId.rawValue] = id
-            return id
-        }
-        return id
-    }
-}
-
 @objc open class PluginsSharedData: NSObject {
     @objc public var sharedData = [Int: Any]()
-    @objc public enum dataKey: Int {
-        case metricsSessionId
-    }
 }
 
 open class Container: UIBaseObject {
