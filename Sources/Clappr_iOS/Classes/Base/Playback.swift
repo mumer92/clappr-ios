@@ -93,20 +93,6 @@ open class Playback: UIBaseObject, Plugin {
             if self.startAt != 0.0 && self.playbackType == .vod {
                 self.seek(self.startAt)
             }
-
-            self.selectDefaultMediaOptions()
-        }
-    }
-
-    fileprivate func selectDefaultMediaOptions() {
-        if let defaultSubtitleLanguage = options[kDefaultSubtitle] as? String,
-            let defaultSubtitle = subtitles?.filter({ $0.language == defaultSubtitleLanguage }).first {
-            selectedSubtitle = defaultSubtitle
-        }
-
-        if let defaultAudioLanguage = options[kDefaultAudioSource] as? String,
-            let defaultAudioSource = audioSources?.filter({ $0.language == defaultAudioLanguage }).first {
-            selectedAudioSource = defaultAudioSource
         }
     }
 
