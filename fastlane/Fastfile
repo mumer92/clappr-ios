@@ -53,6 +53,50 @@ platform :ios do
     )
   end
 
+  desc "Release a RC or a snapshot"
+  lane :release_candidate_or_snapshot do |options|
+    UI.user_error!("You need to provide the new version number like: make release version=X.X.X") if options[:version].to_s.strip.empty?
+
+    ensure_environment_vars
+
+    ensure_git_status_clean
+
+    # test
+
+    version_bump(options)
+
+    git_add
+
+    commit_version_bump(
+      xcodeproj: "Clappr.xcodeproj",
+      force: true
+    )
+
+    if git_tag_exists(tag: version)
+      `git tag --delete #{version}`
+      `git push --delete origin #{version}`
+    end
+
+    add_git_tag(
+      tag: "#{options[:version]}"
+    )
+
+    push_git_tags(tag: "#{version}", force: true)
+
+    set_github_release(
+      repository_name: "clappr/clappr-ios",
+      api_token: ENV["GITHUB_TOKEN"],
+      name: "",
+      tag_name: options[:version],
+      description: "TODO: write release notes here"
+      is_prerelease: true
+    )
+
+    pod_push(
+      allow_warnings: true
+    )
+  end
+
   desc "Release a new version of Clappr"
   lane :release do |options|
     UI.user_error!("You need to provide the new version number like: make release version=X.X.X") if options[:version].to_s.strip.empty?

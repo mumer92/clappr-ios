@@ -17,3 +17,10 @@ test:
 
 release:
 	$(FASTLANE) release version:$(version)
+
+
+release_candidate:
+	$(FASTLANE) release_candidate_or_snapshot version:$(version)
+
+release_snapshot:
+	$(FASTLANE) release_candidate_or_snapshot version:$(version)
